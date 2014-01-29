@@ -5,5 +5,11 @@ module Mach5Tools
     def initialize(filename)
       @yaml = YAML.load_file(filename)
     end
+
+    def before
+      @yaml["before"].each do |cmd|
+        Kernel.system cmd
+      end
+    end
   end
 end
