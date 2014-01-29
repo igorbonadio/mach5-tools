@@ -1,4 +1,5 @@
 require 'yaml'
+require 'json'
 
 module Mach5Tools
   class Project
@@ -23,12 +24,12 @@ module Mach5Tools
     end
 
     def run(benchmarks)
-      results = []
+      results = ""
       @yaml["run"].each do |cmd|
         output = IO.popen "#{cmd} run #{benchmarks.join(" ")}"
-        results << output.readlines.join
+        results = output.readlines.join
       end
-      results
+      JSON.parse(results)
     end
 
     def run_all
@@ -36,7 +37,7 @@ module Mach5Tools
       commits.each do |commit|
         commit.checkout
         before
-        results[commit] = run(commit.benchmarks)
+        results[commit.id] = run(commit.benchmarks)
         after
       end
       results
