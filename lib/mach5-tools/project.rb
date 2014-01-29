@@ -6,22 +6,13 @@ module Mach5Tools
       @yaml = YAML.load_file(filename)
     end
 
-    def before
-      @yaml["before"].each do |cmd|
-        Kernel.system cmd
+    %w{before run after}.each do |method|
+      define_method(method) do
+        @yaml[method].each do |cmd|
+          Kernel.system cmd
+        end
       end
     end
 
-    def run
-      @yaml["run"].each do |cmd|
-        Kernel.system cmd
-      end
-    end
-
-    def after
-      @yaml["after"].each do |cmd|
-        Kernel.system cmd
-      end
-    end
   end
 end
