@@ -21,7 +21,13 @@ module Mach5Tools
       project.run
     end
 
-    it "should have a list of commands to execute after benchmarks"
+    it "should have a list of commands to execute after benchmarks" do
+      project = Project.new(File.expand_path(File.dirname(__FILE__) + '/mach5.yml'))
+      Kernel.should_receive(:system).with("make clean")
+      Kernel.should_receive(:system).with("cd ..")
+      project.after
+    end
+
     it "should have a list of commits"
   end
 end

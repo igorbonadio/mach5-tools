@@ -17,5 +17,11 @@ module Mach5Tools
         Kernel.system cmd
       end
     end
+
+    def after
+      @yaml["after"].each do |cmd|
+        Kernel.system cmd
+      end
+    end
   end
 end
