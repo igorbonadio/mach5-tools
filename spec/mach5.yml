@@ -11,11 +11,9 @@ benchmarks:
   - ALinearChainCRFCalculatesProbabilityOfObservationsUsingBackward
   - ALinearChainCRFDecodesASequenceOfObservationsUsingThePosteriorProbability
 before:
-- cd build
-- cmake ..
-- make
+- cd build && cmake ..
+- cd build && make
 run:
-- ./benchmark/benchmark
+- ./build/benchmark/benchmark
 after:
-- make clean
-- cd ..
+- cd build && make clean
