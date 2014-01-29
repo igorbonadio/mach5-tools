@@ -14,11 +14,17 @@ module Mach5Tools
       return _commits
     end
 
-    %w{before run after}.each do |method|
+    %w{before after}.each do |method|
       define_method(method) do
         @yaml[method].each do |cmd|
           Kernel.system cmd
         end
+      end
+    end
+
+    def run(benchmarks)
+      @yaml["run"].each do |cmd|
+        Kernel.system "#{cmd} #{benchmarks.join(" ")}"
       end
     end
 

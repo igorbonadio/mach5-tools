@@ -18,8 +18,8 @@ module Mach5Tools
     end
 
     it "should have a list of commands to execute benchmarks" do
-      Kernel.should_receive(:system).with("./benchmark/benchmark")
-      @project.run
+      Kernel.should_receive(:system).with("./benchmark/benchmark test1 test2")
+      @project.run(["test1", "test2"])
     end
 
     it "should have a list of commands to execute after benchmarks" do
