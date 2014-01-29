@@ -28,5 +28,14 @@ module Mach5Tools
       end
     end
 
+    def run_all
+      commits.each do |commit|
+        commit.checkout
+        before
+        run(commit.benchmarks)
+        after
+      end
+    end
+
   end
 end
