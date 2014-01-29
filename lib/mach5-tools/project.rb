@@ -23,18 +23,23 @@ module Mach5Tools
     end
 
     def run(benchmarks)
+      results = []
       @yaml["run"].each do |cmd|
-        Kernel.system "#{cmd} #{benchmarks.join(" ")}"
+        output = IO.popen "#{cmd} #{benchmarks.join(" ")}"
+        results << output.readlines.join
       end
+      results
     end
 
     def run_all
+      results = []
       commits.each do |commit|
         commit.checkout
         before
-        run(commit.benchmarks)
+        results += run(commit.benchmarks)
         after
       end
+      results
     end
 
   end

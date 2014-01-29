@@ -18,7 +18,9 @@ module Mach5Tools
     end
 
     it "should have a list of commands to execute benchmarks" do
-      Kernel.should_receive(:system).with("./benchmark/benchmark test1 test2")
+      output = double("Output")
+      output.stub(:readlines).and_return(["output"])
+      IO.should_receive(:popen).with("./benchmark/benchmark test1 test2").and_return(output)
       @project.run(["test1", "test2"])
     end
 
@@ -37,7 +39,9 @@ module Mach5Tools
       Kernel.should_receive(:system).with("cd build")
       Kernel.should_receive(:system).with("cmake ..")
       Kernel.should_receive(:system).with("make")
-      Kernel.should_receive(:system).with("./benchmark/benchmark AHiddenMarkovModelEvaluatesSequences AHiddenMarkovModelFindsTheBestPath AHiddenMarkovModelCalculatesProbabilityOfObservationsUsingForward AHiddenMarkovModelCalculatesProbabilityOfObservationsUsingBackward AHiddenMarkovModelDecodesASequenceOfObservationsUsingThePosteriorProbability")
+      output = double("Output")
+      output.stub(:readlines).and_return(["output"])
+      IO.should_receive(:popen).with("./benchmark/benchmark AHiddenMarkovModelEvaluatesSequences AHiddenMarkovModelFindsTheBestPath AHiddenMarkovModelCalculatesProbabilityOfObservationsUsingForward AHiddenMarkovModelCalculatesProbabilityOfObservationsUsingBackward AHiddenMarkovModelDecodesASequenceOfObservationsUsingThePosteriorProbability").and_return(output)
       Kernel.should_receive(:system).with("make clean")
       Kernel.should_receive(:system).with("cd ..")
 
@@ -45,7 +49,9 @@ module Mach5Tools
       Kernel.should_receive(:system).with("cd build")
       Kernel.should_receive(:system).with("cmake ..")
       Kernel.should_receive(:system).with("make")
-      Kernel.should_receive(:system).with("./benchmark/benchmark ALinearChainCRFFindsTheBestPath ALinearChainCRFCalculatesProbabilityOfObservationsUsingForward ALinearChainCRFCalculatesProbabilityOfObservationsUsingBackward ALinearChainCRFDecodesASequenceOfObservationsUsingThePosteriorProbability")
+      output = double("Output")
+      output.stub(:readlines).and_return(["output"])
+      IO.should_receive(:popen).with("./benchmark/benchmark ALinearChainCRFFindsTheBestPath ALinearChainCRFCalculatesProbabilityOfObservationsUsingForward ALinearChainCRFCalculatesProbabilityOfObservationsUsingBackward ALinearChainCRFDecodesASequenceOfObservationsUsingThePosteriorProbability").and_return(output)
       Kernel.should_receive(:system).with("make clean")
       Kernel.should_receive(:system).with("cd ..")
 
