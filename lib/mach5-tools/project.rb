@@ -25,7 +25,7 @@ module Mach5Tools
     def run(benchmarks)
       results = []
       @yaml["run"].each do |cmd|
-        output = IO.popen "#{cmd} #{benchmarks.join(" ")}"
+        output = IO.popen "#{cmd} run #{benchmarks.join(" ")}"
         results << output.readlines.join
       end
       results
