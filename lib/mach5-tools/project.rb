@@ -32,11 +32,11 @@ module Mach5Tools
     end
 
     def run_all
-      results = []
+      results = {}
       commits.each do |commit|
         commit.checkout
         before
-        results += run(commit.benchmarks)
+        results[commit] = run(commit.benchmarks)
         after
       end
       results
