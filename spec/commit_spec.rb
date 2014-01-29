@@ -13,5 +13,10 @@ module Mach5Tools
     it "should have a list of benchmarks" do
       @commit.benchmarks.size.should be == 5
     end
+
+    it "should checkout a specific commit" do
+      Kernel.should_receive(:system).with("git checkout ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
+      @commit.checkout
+    end
   end
 end

@@ -7,5 +7,9 @@ module Mach5Tools
       @id = id
       @benchmarks = benchmarks
     end
+
+    def checkout
+      Kernel.system "git checkout #{@id}"
+    end
   end
 end
