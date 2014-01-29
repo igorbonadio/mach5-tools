@@ -15,7 +15,12 @@ module Mach5Tools
       project.before
     end
 
-    it "should have a list of commands to execute benchmarks"
+    it "should have a list of commands to execute benchmarks" do
+      project = Project.new(File.expand_path(File.dirname(__FILE__) + '/mach5.yml'))
+      Kernel.should_receive(:system).with("./benchmark/benchmark")
+      project.run
+    end
+
     it "should have a list of commands to execute after benchmarks"
     it "should have a list of commits"
   end

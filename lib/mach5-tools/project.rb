@@ -11,5 +11,11 @@ module Mach5Tools
         Kernel.system cmd
       end
     end
+
+    def run
+      @yaml["run"].each do |cmd|
+        Kernel.system cmd
+      end
+    end
   end
 end
