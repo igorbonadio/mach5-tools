@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'mach5-tools'
+
+project = Mach5Tools::Project.new(File.join(Dir.pwd, 'mach5.yml'))
+p project.run_all
