@@ -11,9 +11,7 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Mach5 Beta</h1>
-
-    <div id="container" style="width:100%; height:400px;"></div>
+    <div id="container" style="width:100%; height:100%;"></div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -36,6 +34,8 @@
           }
         }
 
+        $('#container').height($(document).height());
+
         var index = Array.apply(null, Array(index_size)).map(function (_, i) {return i;});
 
         $('#container').highcharts({
@@ -57,6 +57,11 @@
                 }
             },
             series: data
+        });
+
+        $(window).resize(function() {
+          console.log($(window).height());
+          $('#container').height($(window).height());
         });
     });
     </script>
