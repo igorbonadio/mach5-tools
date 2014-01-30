@@ -1,10 +1,10 @@
-= Mach5 Tools
+= Mach 5 Tools
 
 It is a beta software!
 
-Mach5 Tools is part of Mach5 project: https://github.com/igorbonadio/mach5
+Mach 5 Tools is part of Mach 5 project: https://github.com/igorbonadio/mach5
 
-== Contributing to mach5-tools
+== Contributing to Mach 5 Tools
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
