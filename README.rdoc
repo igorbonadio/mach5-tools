@@ -1,6 +1,8 @@
 = Mach5 Tools
 
-Description goes here.
+It is a beta software!
+
+Mach5 Tools is part of Mach5 project: https://github.com/igorbonadio/mach5
 
 == Contributing to mach5-tools
 
