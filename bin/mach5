@@ -4,5 +4,20 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mach5-tools'
 
+def db(json)
+  output = {}
+  json.each do |commit, benchmarks|
+    benchmarks.each do |benchmark, results|
+      output[benchmark] ||= {}
+      output[benchmark][commit] = results
+    end
+  end
+  return output
+end
+
 project = Mach5Tools::Project.new(File.join(Dir.pwd, 'mach5.yml'))
-p project.run_all
+mach5_data = db(project.run_all)
+
+File.open("mach5.js", 'w') do |file|
+  file.write("var mach5[\"data\"] = #{mach5_data.to_s}")
+end
