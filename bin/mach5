@@ -12,12 +12,16 @@ def db(json)
       output[benchmark][commit] = results
     end
   end
-  return output
+  return output.to_json
 end
 
 project = Mach5Tools::Project.new(File.join(Dir.pwd, 'mach5.yml'))
 mach5_data = db(project.run_all)
 
 File.open("mach5.js", 'w') do |file|
-  file.write("var mach5[\"data\"] = #{mach5_data.to_s}")
+  file.write("var mach5 = {};\nmach5[\"data\"] = #{mach5_data.to_s}")
+end
+
+File.open("mach5.html", 'w') do |file|
+  file.write(File.open(File.join(File.dirname(__FILE__), '..', 'lib', 'mach5.html')).readlines.join)
 end
