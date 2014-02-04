@@ -12,7 +12,7 @@ module Mach5
     end
 
     def add(commit_id, value)
-      @memory[commit_id] |= []
+      @memory[commit_id] ||= []
       @memory[commit_id] << value
     end
 

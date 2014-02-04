@@ -22,10 +22,8 @@ module Mach5
 
     it "should add benchmarks by commit id" do
       commit_list = double("CommitList")
-      commit_list.should_receive("|").with([]).and_return(commit_list)
       commit_list.should_receive("<<").with("HMMDishonestCasino.Evaluate")
       @memory.stub("[]").and_return(commit_list)
-      @memory.stub("[]=").with("ab7c4351a13b29ea4c21e3662f9f567ff19a854d", commit_list)
       @benchmark.add('ab7c4351a13b29ea4c21e3662f9f567ff19a854d', "HMMDishonestCasino.Evaluate")
     end
 
