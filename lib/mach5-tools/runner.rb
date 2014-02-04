@@ -6,9 +6,11 @@ module Mach5
       @after = after
     end
 
-    def before
-      @before.call.each do |command|
-        Kernel.system command
+    %w{before after}.each do |method|
+      define_method(method) do
+        instance_variable_get("@#{method}").call.each do |command|
+          Kernel.system command
+        end
       end
     end
 
@@ -18,10 +20,5 @@ module Mach5
       end
     end
 
-    def after
-      @after.call.each do |command|
-        Kernel.system command
-      end
-    end
   end
 end
