@@ -12,22 +12,12 @@ module Mach5
       instance_eval(&block)
     end
 
-    def before(&block)
-      @commands = []
-      instance_eval(&block)
-      @before_commands = @commands
-    end
-
-    def run(&block)
-      @commands = []
-      instance_eval(&block)
-      @run_commands = @commands
-    end
-
-    def after(&block)
-      @commands = []
-      instance_eval(&block)
-      @after_commands = @commands
+    %w{before run after}.each do |method|
+      define_method(method) do |&block|
+        instance_variable_set("@commands", [])
+        instance_eval(&block)
+        instance_variable_set("@#{method}_commands", instance_variable_get("@commands"))
+      end
     end
 
     def exec(command)
