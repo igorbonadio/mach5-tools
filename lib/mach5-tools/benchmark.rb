@@ -10,5 +10,10 @@ module Mach5
         @memory[@tags[commit_id]]
       end
     end
+
+    def add(commit_id, value)
+      @memory[commit_id] |= []
+      @memory[commit_id] << value
+    end
   end
 end
