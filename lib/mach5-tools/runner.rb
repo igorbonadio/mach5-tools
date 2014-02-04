@@ -12,9 +12,9 @@ module Mach5
       end
     end
 
-    def run
+    def run(benchmarks)
       @run.call.each do |command|
-        Kernel.system command
+        Kernel.system "#{command} #{benchmarks.join(" ")}"
       end
     end
 
