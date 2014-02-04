@@ -15,5 +15,9 @@ module Mach5
       @memory[commit_id] |= []
       @memory[commit_id] << value
     end
+
+    def tag(commit_id, tag_name)
+      @tags[tag_name] = commit_id
+    end
   end
 end

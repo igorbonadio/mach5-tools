@@ -28,5 +28,10 @@ module Mach5
       @memory.stub("[]=").with("ab7c4351a13b29ea4c21e3662f9f567ff19a854d", commit_list)
       @benchmark.add('ab7c4351a13b29ea4c21e3662f9f567ff19a854d', "HMMDishonestCasino.Evaluate")
     end
+
+    it "should tag commits" do
+      @tags.should_receive("[]=").with("v1.0.1", "ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
+      @benchmark.tag("ab7c4351a13b29ea4c21e3662f9f567ff19a854d", "v1.0.1")
+    end
   end
 end
