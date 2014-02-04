@@ -20,5 +20,9 @@ module Mach5
       end
     end
 
+    def checkout(commit_id)
+      Kernel.system "git checkout #{commit_id}"
+    end
+
   end
 end

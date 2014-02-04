@@ -45,5 +45,10 @@ module Mach5
       Kernel.should_receive(:system).with("./build/benchmark/benchmark HMM.Evaluate HMM.Viterbi")
       @runner.run(['HMM.Evaluate', 'HMM.Viterbi'])
     end
+
+    it "should checkout a commit" do
+      Kernel.should_receive(:system).with("git checkout ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
+      @runner.checkout("ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
+    end
   end
 end
