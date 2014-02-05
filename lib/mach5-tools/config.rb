@@ -9,6 +9,7 @@ module Mach5
     attr_accessor:after_commands
 
     def initialize(block)
+      @benchmark = Benchmark.new(Hash.new, Hash.new)
       instance_eval(&block)
     end
 
@@ -18,6 +19,16 @@ module Mach5
         instance_eval(&block)
         instance_variable_set("@#{method}_commands", instance_variable_get("@commands"))
       end
+    end
+
+    def benchmark(commit_id, &block)
+      @commit_id = commit_id
+      instance_eval(&block)
+      @commit_id = ""
+    end
+
+    def add(benchmark)
+      @benchmark.add(@commit_id, benchmark)
     end
 
     def exec(command)

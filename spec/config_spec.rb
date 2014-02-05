@@ -10,30 +10,6 @@ module Mach5
       end
     end
 
-    it "should define the before commands" do
-      Config.any_instance.should_receive(:before)
-      Mach5::mach5("v0.0.1") do
-        before do
-        end
-      end
-    end
-
-    it "should define the run commands" do
-      Config.any_instance.should_receive(:run)
-      Mach5::mach5("v0.0.1") do
-        run do
-        end
-      end
-    end
-
-    it "should define the after commands" do
-      Config.any_instance.should_receive(:after)
-      Mach5::mach5("v0.0.1") do
-        after do
-        end
-      end
-    end
-
     it "should create a list of before commands" do
       config = Mach5::mach5("v0.0.1") do
         before do
@@ -60,6 +36,15 @@ module Mach5
         end
       end
       config.after_commands.should be == ["cd build && make clean"]
+    end
+
+    it "should define benchmarks" do
+      Benchmark.any_instance.should_receive(:add).with("c031c8e9afe1493a81274adbdb61b81bc30ef522", "HMMDishonestCasino.Evaluate")
+      Mach5::mach5("v0.0.1") do
+        benchmark "c031c8e9afe1493a81274adbdb61b81bc30ef522" do
+          add "HMMDishonestCasino.Evaluate"
+        end
+      end
     end
   end
 end
