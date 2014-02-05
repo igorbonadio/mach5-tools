@@ -22,7 +22,12 @@ module Mach5
     end
 
     def benchmark(commit_id, &block)
-      @commit_id = commit_id
+      if commit_id.is_a? Hash
+        @commit_id = commit_id.keys[0]
+        @benchmark.tag(@commit_id, commit_id.values[0])
+      else
+        @commit_id = commit_id
+      end
       instance_eval(&block)
       @commit_id = ""
     end

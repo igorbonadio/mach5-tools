@@ -46,5 +46,15 @@ module Mach5
         end
       end
     end
+
+    it "should define benchmarks with tags of commits" do
+      Benchmark.any_instance.should_receive(:add).with("c031c8e9afe1493a81274adbdb61b81bc30ef522", "HMMDishonestCasino.Evaluate")
+      Benchmark.any_instance.should_receive(:tag).with("c031c8e9afe1493a81274adbdb61b81bc30ef522", "v0.0.1")
+      Mach5::mach5("v0.0.1") do
+        benchmark "c031c8e9afe1493a81274adbdb61b81bc30ef522" => "v0.0.1" do
+          add "HMMDishonestCasino.Evaluate"
+        end
+      end
+    end
   end
 end
