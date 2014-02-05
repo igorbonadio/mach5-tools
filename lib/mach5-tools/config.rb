@@ -1,5 +1,5 @@
 module Mach5
-  def self.configure(version, &block)
+  def self.mach5(version, &block)
     Config.new(block)
   end
 
