@@ -8,6 +8,7 @@ module Mach5
     attr_accessor :run_commands
     attr_accessor :after_commands
     attr_accessor :project_name
+    attr_accessor :output_folder
 
     def initialize(project_name, block)
       @project_name = project_name
@@ -32,6 +33,10 @@ module Mach5
       end
       instance_eval(&block)
       @commit_id = ""
+    end
+
+    def output(folder)
+      @output_folder = folder
     end
 
     def add(benchmark)
