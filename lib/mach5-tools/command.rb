@@ -1,5 +1,5 @@
 module Mach5
-  class Runner
+  class Command
     def initialize(before, run, after)
       @before = before
       @run = run
