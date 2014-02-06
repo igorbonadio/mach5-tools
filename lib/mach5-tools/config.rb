@@ -1,14 +1,16 @@
 module Mach5
-  def self.configure(version, &block)
-    Config.new(block)
+  def self.configure(project_name, &block)
+    Config.new(project_name, block)
   end
 
   class Config
     attr_accessor :before_commands
     attr_accessor :run_commands
-    attr_accessor:after_commands
+    attr_accessor :after_commands
+    attr_accessor :project_name
 
-    def initialize(block)
+    def initialize(project_name, block)
+      @project_name = project_name
       @benchmark = Benchmark.new(Hash.new, Hash.new)
       instance_eval(&block)
     end
