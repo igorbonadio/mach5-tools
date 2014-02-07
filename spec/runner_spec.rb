@@ -45,5 +45,10 @@ module Mach5
       Kernel.should_receive(:system).with("cd build && make clean")
       @runner.after
     end
+
+    it "should run benchmark" do
+      Kernel.should_receive(:system).with("./build/benchmark/benchmark HMM.Evaluate HMM.Viterbi")
+      @runner.run(["HMM.Evaluate", "HMM.Viterbi"])
+    end
   end
 end
