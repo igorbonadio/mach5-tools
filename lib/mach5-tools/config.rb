@@ -9,6 +9,7 @@ module Mach5
     attr_accessor :after_commands
     attr_accessor :project_name
     attr_accessor :output_folder
+    attr_accessor :benchmark
 
     def initialize(project_name, block)
       @project_name = project_name
