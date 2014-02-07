@@ -4,4 +4,5 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mach5-tools'
 
-config = eval(File.open("Mach5file").readlines.join)
+runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
+runner.run_all

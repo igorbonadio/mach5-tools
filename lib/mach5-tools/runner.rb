@@ -14,7 +14,7 @@ module Mach5
 
     def run(benchmarks)
       @config.run_commands.each do |command|
-        Kernel.system "#{command} #{benchmarks.join(' ')}"
+        Kernel.system "#{command} run #{benchmarks.join(' ')}"
       end
     end
 
