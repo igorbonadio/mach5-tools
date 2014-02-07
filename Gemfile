@@ -12,3 +12,5 @@ group :development do
   gem "jeweler", "~> 2.0.0"
   gem "simplecov", "~> 0.8.2"
 end
+
+gem "thor", "~> 0.18.1"

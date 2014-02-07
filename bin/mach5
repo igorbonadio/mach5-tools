@@ -3,6 +3,14 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mach5-tools'
+require 'thor'
 
-runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
-runner.run_all
+class App < Thor
+  desc "benchmark", "run all benchmarks"
+  def benchmark
+    runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
+    runner.run_all
+  end
+end
+
+App.start
