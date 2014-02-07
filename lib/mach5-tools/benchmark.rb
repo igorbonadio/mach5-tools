@@ -6,7 +6,10 @@ module Mach5
     end
 
     def [](commit_id)
-      unless @memory[commit_id]
+      benchmarks = @memory[commit_id]
+      if benchmarks
+        benchmarks
+      else
         @memory[@tags[commit_id]]
       end
     end
@@ -18,6 +21,10 @@ module Mach5
 
     def tag(commit_id, tag_name)
       @tags[tag_name] = commit_id
+    end
+
+    def commits
+      @memory.keys
     end
   end
 end

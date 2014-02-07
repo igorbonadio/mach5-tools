@@ -9,11 +9,11 @@ module Mach5
     attr_accessor :after_commands
     attr_accessor :project_name
     attr_accessor :output_folder
-    attr_accessor :benchmark
+    attr_accessor :benchmarks
 
     def initialize(project_name, block)
       @project_name = project_name
-      @benchmark = Benchmark.new(Hash.new, Hash.new)
+      @benchmarks = Benchmark.new(Hash.new, Hash.new)
       instance_eval(&block)
     end
 
@@ -28,7 +28,7 @@ module Mach5
     def benchmark(commit_id, &block)
       if commit_id.is_a? Hash
         @commit_id = commit_id.keys[0]
-        @benchmark.tag(@commit_id, commit_id.values[0])
+        @benchmarks.tag(@commit_id, commit_id.values[0])
       else
         @commit_id = commit_id
       end
@@ -41,7 +41,7 @@ module Mach5
     end
 
     def add(benchmark)
-      @benchmark.add(@commit_id, benchmark)
+      @benchmarks.add(@commit_id, benchmark)
     end
 
     def exec(command)

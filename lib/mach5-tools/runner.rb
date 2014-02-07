@@ -17,5 +17,18 @@ module Mach5
         Kernel.system "#{command} #{benchmarks.join(' ')}"
       end
     end
+
+    def run_all
+      @config.benchmarks.commits.each do |commit|
+        checkout(commit)
+        before
+        run(@config.benchmarks[commit])
+        after
+      end
+    end
+
+    def checkout(commit_id)
+      Kernel.system "git checkout #{commit_id}"
+    end
   end
 end
