@@ -60,7 +60,7 @@ module Mach5
       @runner.should_receive(:before)
       @runner.should_receive(:run).with(["DishonestCasinoHMM.Forward", "DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"])
       @runner.should_receive(:after)
-      @runner.benchmark
+      @runner.benchmark({})
     end
   end
 end

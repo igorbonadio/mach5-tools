@@ -6,11 +6,14 @@ require 'mach5-tools'
 require 'thor'
 
 class App < Thor
-  desc "benchmark", "run all benchmarks"
+  desc "benchmark", "Run benchmarks"
+  method_option :all, :type => :boolean, :aliases => "-a", :desc => "Run all benchmarks even if there is already a result"
   def benchmark
     runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
-    runner.benchmark
+    runner.benchmark(all: options.all)
   end
+
+  default_task :benchmark
 end
 
 App.start
