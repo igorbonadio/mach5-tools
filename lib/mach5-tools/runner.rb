@@ -18,7 +18,7 @@ module Mach5
       end
     end
 
-    def run_all
+    def benchmark
       @config.benchmarks.commits.each do |commit|
         checkout(commit)
         before
