@@ -57,7 +57,7 @@ module Mach5
     it "should save results" do
       Dir.should_receive(:exists?).and_return(false)
       Dir.should_receive(:mkdir)
-      File.should_receive(:open).with("#{@config.output_folder}/commit.key", "w")
+      File.should_receive(:open).with("#{@config.output_folder}/commit.key.json", "w")
       @runner.save({"key" => "value"}, "commit")
     end
 
@@ -72,5 +72,14 @@ module Mach5
       @runner.should_receive(:after)
       @runner.benchmark({})
     end
+
+    # it "should run only new benchmarks" do
+    #   File.should_receive(:exists).with("_benchmark/ab7c4351a13b29ea4c21e3662f9f567ff19a854d.DishonestCasinoHMM.Evaluate.json")
+    #   Kernel.should_receive(:system).with("git checkout c031c8e9afe1493a81274adbdb61b81bc30ef522")
+    #   @runner.should_receive(:before)
+    #   @runner.should_receive(:run).with(["DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"]).and_return({})
+    #   @runner.should_receive(:after)
+    #   @runner.benchmark({})
+    # end
   end
 end
