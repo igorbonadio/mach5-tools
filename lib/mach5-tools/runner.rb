@@ -24,12 +24,32 @@ module Mach5
     end
 
     def benchmark(options)
-      @config.benchmarks.commits.each do |commit|
-        checkout(commit)
-        before
-        save(run(@config.benchmarks[commit]), commit)
-        after
+      if options[:all]
+        @config.benchmarks.commits.each do |commit|
+          checkout(commit)
+          before
+          save(run(@config.benchmarks[commit]), commit)
+          after
+        end
+      else
+        @config.benchmarks.commits.each do |commit|
+          new_benchmarks = find_new_benchmarks(@config.benchmarks[commit], commit)
+          if new_benchmarks.size > 0
+            checkout(commit)
+            before
+            save(run(new_benchmarks), commit)
+            after
+          end
+        end
       end
+    end
+
+    def find_new_benchmarks(benchmarks, commit)
+      new_benchmarks = []
+      benchmarks.each do |benchmark|
+        new_benchmarks << benchmark unless File.exists(File.join(@config.output_folder, "#{commit}.#{benchmark}.json"))
+      end
+      new_benchmarks
     end
 
     def save(json, commit)
