@@ -55,7 +55,7 @@ module Mach5
     def find_new_benchmarks(benchmarks, commit)
       new_benchmarks = []
       benchmarks.each do |benchmark|
-        new_benchmarks << benchmark unless File.exists(File.join(@config.output_folder, "#{commit}.#{benchmark}.json"))
+        new_benchmarks << benchmark unless File.exists?(File.join(@config.output_folder, "#{commit}.#{benchmark}.json"))
       end
       new_benchmarks
     end

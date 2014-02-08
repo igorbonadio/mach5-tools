@@ -74,11 +74,11 @@ module Mach5
     end
 
     it "should run only new benchmarks" do
-      File.should_receive(:exists).with("_benchmark/ab7c4351a13b29ea4c21e3662f9f567ff19a854d.DishonestCasinoHMM.Evaluate.json").and_return(true)
-      File.should_receive(:exists).with("_benchmark/ab7c4351a13b29ea4c21e3662f9f567ff19a854d.DishonestCasinoHMM.Viterbi.json").and_return(true)
-      File.should_receive(:exists).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Forward.json").and_return(true)
-      File.should_receive(:exists).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Backward.json").and_return(false)
-      File.should_receive(:exists).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding.json").and_return(false)
+      File.should_receive(:exists?).with("_benchmark/ab7c4351a13b29ea4c21e3662f9f567ff19a854d.DishonestCasinoHMM.Evaluate.json").and_return(true)
+      File.should_receive(:exists?).with("_benchmark/ab7c4351a13b29ea4c21e3662f9f567ff19a854d.DishonestCasinoHMM.Viterbi.json").and_return(true)
+      File.should_receive(:exists?).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Forward.json").and_return(true)
+      File.should_receive(:exists?).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Backward.json").and_return(false)
+      File.should_receive(:exists?).with("_benchmark/c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding.json").and_return(false)
       Kernel.should_receive(:system).with("git checkout c031c8e9afe1493a81274adbdb61b81bc30ef522")
       @runner.should_receive(:before)
       @runner.should_receive(:run).with(["DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"]).and_return({})
