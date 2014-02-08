@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Mach5
   describe Runner do
     before(:each) do
+      Dir.stub(:mkdir)
       @config = Mach5::configure "ToPS::Core" do
         benchmark "ab7c4351a13b29ea4c21e3662f9f567ff19a854d" => 'v1.0.0' do
           add "DishonestCasinoHMM.Evaluate"
@@ -54,6 +55,8 @@ module Mach5
     end
 
     it "should save results" do
+      Dir.should_receive(:exists?).and_return(false)
+      Dir.should_receive(:mkdir)
       File.should_receive(:open).with("#{@config.output_folder}/commit.key", "w")
       @runner.save({"key" => "value"}, "commit")
     end

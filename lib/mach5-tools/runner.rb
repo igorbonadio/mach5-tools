@@ -33,6 +33,7 @@ module Mach5
     end
 
     def save(json, commit)
+      Dir.mkdir(@config.output_folder) unless Dir.exists?(@config.output_folder)
       json.each do |key, value|
         File.open(File.join(@config.output_folder, "#{commit}.#{key}"), "w") do |f|
           f.write(value.to_json)
