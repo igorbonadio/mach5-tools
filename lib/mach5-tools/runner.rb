@@ -1,3 +1,5 @@
+require 'json'
+
 module Mach5
   class Runner
     def initialize(config)
@@ -13,9 +15,12 @@ module Mach5
     end
 
     def run(benchmarks)
+      results = ""
       @config.run_commands.each do |command|
-        Kernel.system "#{command} -c run #{benchmarks.join(' ')}"
+        output = IO.popen "#{command} --color --json run #{benchmarks.join(' ')}"
+        results = output.readlines.join
       end
+      JSON.parse(results)
     end
 
     def benchmark(options)

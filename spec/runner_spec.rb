@@ -47,7 +47,9 @@ module Mach5
     end
 
     it "should run benchmark" do
-      Kernel.should_receive(:system).with("./build/benchmark/benchmark -c run HMM.Evaluate HMM.Viterbi")
+      stdio = double("STDIO")
+      stdio.should_receive(:readlines).and_return(["{}"])
+      IO.should_receive(:popen).with("./build/benchmark/benchmark --color --json run HMM.Evaluate HMM.Viterbi").and_return(stdio)
       @runner.run(["HMM.Evaluate", "HMM.Viterbi"])
     end
 
