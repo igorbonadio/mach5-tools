@@ -25,21 +25,29 @@ module Mach5
 
     def benchmark(options)
       if options[:all]
-        @config.benchmarks.commits.each do |commit|
+        run_all_benchmarks
+      else
+        run_only_new_benchmarks
+      end
+    end
+
+    def run_all_benchmarks
+      @config.benchmarks.commits.each do |commit|
+        checkout(commit)
+        before
+        save(run(@config.benchmarks[commit]), commit)
+        after
+      end
+    end
+
+    def run_only_new_benchmarks
+      @config.benchmarks.commits.each do |commit|
+        new_benchmarks = find_new_benchmarks(@config.benchmarks[commit], commit)
+        if new_benchmarks.size > 0
           checkout(commit)
           before
-          save(run(@config.benchmarks[commit]), commit)
+          save(run(new_benchmarks), commit)
           after
-        end
-      else
-        @config.benchmarks.commits.each do |commit|
-          new_benchmarks = find_new_benchmarks(@config.benchmarks[commit], commit)
-          if new_benchmarks.size > 0
-            checkout(commit)
-            before
-            save(run(new_benchmarks), commit)
-            after
-          end
         end
       end
     end
