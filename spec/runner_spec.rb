@@ -53,14 +53,19 @@ module Mach5
       @runner.run(["HMM.Evaluate", "HMM.Viterbi"])
     end
 
+    it "should save results" do
+      File.should_receive(:open).with("#{@config.output_folder}/commit.key", "w")
+      @runner.save({"key" => "value"}, "commit")
+    end
+
     it "should run all benchmarks" do
       Kernel.should_receive(:system).with("git checkout ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
       @runner.should_receive(:before)
-      @runner.should_receive(:run).with(["DishonestCasinoHMM.Evaluate", "DishonestCasinoHMM.Viterbi"])
+      @runner.should_receive(:run).with(["DishonestCasinoHMM.Evaluate", "DishonestCasinoHMM.Viterbi"]).and_return({})
       @runner.should_receive(:after)
       Kernel.should_receive(:system).with("git checkout c031c8e9afe1493a81274adbdb61b81bc30ef522")
       @runner.should_receive(:before)
-      @runner.should_receive(:run).with(["DishonestCasinoHMM.Forward", "DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"])
+      @runner.should_receive(:run).with(["DishonestCasinoHMM.Forward", "DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"]).and_return({})
       @runner.should_receive(:after)
       @runner.benchmark({})
     end

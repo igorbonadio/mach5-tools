@@ -27,8 +27,16 @@ module Mach5
       @config.benchmarks.commits.each do |commit|
         checkout(commit)
         before
-        run(@config.benchmarks[commit])
+        save(run(@config.benchmarks[commit]), commit)
         after
+      end
+    end
+
+    def save(json, commit)
+      json.each do |key, value|
+        File.open(File.join(@config.output_folder, "#{commit}.#{key}"), "w") do |f|
+          f.write(value.to_json)
+        end
       end
     end
 
