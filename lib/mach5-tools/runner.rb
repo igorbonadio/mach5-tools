@@ -76,8 +76,10 @@ module Mach5
     def list_benchmarks
       benchmark_list = []
       @config.benchmarks.commits.each do |commit|
+        commit_id = @config.benchmarks.has_tag?(commit)
+        commit_id = commit unless commit_id
         @config.benchmarks[commit].each do |benchmark|
-          benchmark_list << "#{commit}.#{benchmark}"
+          benchmark_list << "#{commit_id}.#{benchmark}"
         end
       end
       benchmark_list
