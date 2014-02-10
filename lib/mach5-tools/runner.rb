@@ -26,8 +26,29 @@ module Mach5
     def benchmark(options)
       if options[:all]
         run_all_benchmarks
+      elsif options[:only]
+        run_only(options[:only])
       else
         run_only_new_benchmarks
+      end
+    end
+
+    def run_only(benchmarks)
+      @config.benchmarks.commits.each do |commit|
+        commit_id = @config.benchmarks.has_tag?(commit)
+        selected_benchmarks = []
+        @config.benchmarks[commit].each do |benchmark|
+          without_tag = "#{commit}.#{benchmark}"
+          with_tag = "#{commit_id}.#{benchmark}"
+          selected_benchmarks << benchmark if benchmarks.include?(without_tag)
+          selected_benchmarks << benchmark if benchmarks.include?(with_tag) and commit_id
+        end
+        if selected_benchmarks.size > 0
+          checkout(commit)
+          before
+          save(run(selected_benchmarks), commit)
+          after
+        end
       end
     end
 
