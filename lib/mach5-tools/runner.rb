@@ -72,5 +72,15 @@ module Mach5
     def checkout(commit_id)
       Kernel.system "git checkout #{commit_id}"
     end
+
+    def list_benchmarks
+      benchmark_list = []
+      @config.benchmarks.commits.each do |commit|
+        @config.benchmarks[commit].each do |benchmark|
+          benchmark_list << "#{commit}.#{benchmark}"
+        end
+      end
+      benchmark_list
+    end
   end
 end
