@@ -7,8 +7,15 @@
     <title>Line Chart</title>
   </head>
   <body>
-    <div id="container" style="width:100%; height:400px;"></div>
+    <div id="container" style="width:100%; height:100%;"></div>
     <script src="jquery.js"></script>
     <script src="highcharts.js"></script>
+    <script type="text/javascript">
+    $('#container').height($(document).height());
+    $(window).resize(function() {
+      console.log($(window).height());
+      $('#container').height($(window).height());
+    });
+    </script>
   </body>
 </html>
