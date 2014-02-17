@@ -139,7 +139,14 @@ module Mach5
     end
 
     def generate_chart(chart)
-      Kernel.exec "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
+      benchmarks = []
+      chart.series.each do |benchmark|
+        unless File.exists?("#{File.join(@config.output_folder, benchmark[0])}.#{benchmark[1]}.json")
+          benchmarks << "#{benchmark[0]}.#{benchmark[1]}"
+        end
+      end
+      run_only(benchmarks) if benchmarks.size > 0
+      Kernel.system "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
     end
 
     def list_charts
