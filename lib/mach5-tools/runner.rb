@@ -66,13 +66,15 @@ module Mach5
     def _only_new_benchmarks
       @config.benchmarks.commits.each do |commit|
         new_benchmarks = find_new_benchmarks(@config.benchmarks[commit], commit)
-        if new_benchmarks.size > 0
-          checkout(commit)
-          before
-          save(run(new_benchmarks), commit)
-          after
-        end
+        _run_benchmarks(new_benchmarks, commit) if new_benchmarks.size > 0
       end
+    end
+
+    def _run_benchmarks(benchmarks, commit)
+      checkout(commit)
+      before
+      save(run(benchmarks), commit)
+      after
     end
 
     def _all_charts
