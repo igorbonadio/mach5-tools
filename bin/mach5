@@ -34,7 +34,9 @@ class App < Thor
         puts chart
       end
     elsif options.only
+      runner.chart(only: options.only)
     else
+      runner.chart(all: options.all)
     end
   end
 

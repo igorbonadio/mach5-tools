@@ -61,7 +61,7 @@ module Mach5
       chart.x_axis = @chart_x_axis
       chart.y_axis = @chart_y_axis
       chart.series = @chart_lines
-      chart.folder = @output_folder
+      chart.config = self
       @charts << chart
     end
 

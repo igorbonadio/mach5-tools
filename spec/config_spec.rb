@@ -66,7 +66,6 @@ module Mach5
 
     it "should define a chart" do
       config = Mach5::configure("MyProject") do
-        output "_benchmark"
         chart "viterbi_vs_pd" do
           title "Viterbi vs Posterior Decoding"
           add_line "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.Viterbi"
@@ -75,6 +74,7 @@ module Mach5
           y_axis "Time (s)"
           size "100x200"
         end
+        output "_benchmark"
       end
       config.charts.size.should be == 1
       config.charts[0].build.should be == {

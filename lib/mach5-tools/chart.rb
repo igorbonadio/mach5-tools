@@ -7,7 +7,7 @@ module Mach5
     attr_accessor :x_axis
     attr_accessor :y_axis
     attr_accessor :series
-    attr_accessor :folder
+    attr_accessor :config
     attr_reader :id
 
     def initialize(id)
@@ -44,7 +44,7 @@ module Mach5
       series.each do |s|
         result << {
           "label" => "#{s[0]}.#{s[1]}",
-          "file" =>  File.join(@folder, "#{s[0]}.#{s[1]}.json")
+          "file" =>  File.join(@config.output_folder, "#{s[0]}.#{s[1]}.json")
         }
       end
       result

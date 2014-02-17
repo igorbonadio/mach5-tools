@@ -23,7 +23,7 @@ module Mach5
       JSON.parse(results)
     end
 
-    def benchmark(options)
+    def benchmark(options = {})
       if options[:all]
         run_all_benchmarks
       elsif options[:only]
@@ -104,6 +104,12 @@ module Mach5
         end
       end
       benchmark_list
+    end
+
+    def chart(options = {})
+      @config.charts.each do |chart|
+        puts "phantomjs #{File.join(File.dirname(__FILE__), "..", "lib/js/chart.js")} #{chart.build.to_json}"
+      end
     end
 
     def list_charts

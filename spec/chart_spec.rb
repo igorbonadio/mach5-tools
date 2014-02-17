@@ -4,7 +4,7 @@ module Mach5
   describe Chart do
     before(:each) do
       @chart = Chart.new("Chart")
-      @chart.folder = "_benchmark"
+      @chart.config = Mach5::configure("MyProject") { output "_benchmark"}
       @chart.type = "line"
       @chart.data_type = "runs_total_time"
       @chart.size = "100x200"
