@@ -28,7 +28,7 @@ module Mach5
         if options[:all]
           send("_all_#{method}s")
         elsif options[:only]
-          send("_only_#{method}s")
+          send("_only_#{method}s", options[:only])
         else
           send("_only_new_#{method}s")
         end
@@ -37,21 +37,20 @@ module Mach5
 
     def _only_benchmarks(benchmarks)
       @config.benchmarks.commits.each do |commit|
-        commit_id = @config.benchmarks.has_tag?(commit)
-        selected_benchmarks = []
-        @config.benchmarks[commit].each do |benchmark|
-          without_tag = "#{commit}.#{benchmark}"
-          with_tag = "#{commit_id}.#{benchmark}"
-          selected_benchmarks << benchmark if benchmarks.include?(without_tag)
-          selected_benchmarks << benchmark if benchmarks.include?(with_tag) and commit_id
-        end
-        if selected_benchmarks.size > 0
-          checkout(commit)
-          before
-          save(run(selected_benchmarks), commit)
-          after
-        end
+        selected_benchmarks = _select_benchmarks(commit, @config.benchmarks.has_tag?(commit), benchmarks)
+        _run_benchmarks(selected_benchmarks, commit) if selected_benchmarks.size > 0
       end
+    end
+
+    def _select_benchmarks(commit, commit_id, benchmarks)
+      selected_benchmarks = []
+      @config.benchmarks[commit].each do |benchmark|
+        without_tag = "#{commit}.#{benchmark}"
+        with_tag = "#{commit_id}.#{benchmark}"
+        selected_benchmarks << benchmark if benchmarks.include?(without_tag)
+        selected_benchmarks << benchmark if benchmarks.include?(with_tag) and commit_id
+      end
+      selected_benchmarks
     end
 
     def _all_benchmarks
@@ -100,8 +99,8 @@ module Mach5
     end
 
     def _generate_chart(chart)
-      benchmarks = _check_benchmarks
-      run_only(benchmarks) if benchmarks.size > 0
+      benchmarks = _check_benchmarks(chart)
+      _only_benchmarks(benchmarks) if benchmarks.size > 0
       Kernel.system "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
     end
 
