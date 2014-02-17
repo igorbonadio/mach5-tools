@@ -53,7 +53,7 @@ module Mach5
     def chart(chart_id, &block)
       @chart_lines = []
       instance_eval(&block)
-      chart = Chart.new
+      chart = Chart.new(chart_id)
       chart.type = "line"
       chart.data_type = "runs_total_time"
       chart.size = @chart_size

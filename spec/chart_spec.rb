@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Mach5
   describe Chart do
     before(:each) do
-      @chart = Chart.new
+      @chart = Chart.new("Chart")
       @chart.folder = "_benchmark"
       @chart.type = "line"
       @chart.data_type = "runs_total_time"

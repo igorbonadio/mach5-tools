@@ -8,6 +8,11 @@ module Mach5
     attr_accessor :y_axis
     attr_accessor :series
     attr_accessor :folder
+    attr_reader :id
+
+    def initialize(id)
+      @id = id
+    end
 
     def build
       {

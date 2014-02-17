@@ -105,5 +105,9 @@ module Mach5
       end
       benchmark_list
     end
+
+    def list_charts
+      @config.charts.map(&:id)
+    end
   end
 end

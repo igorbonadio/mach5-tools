@@ -30,6 +30,9 @@ class App < Thor
   def chart
     runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
     if options.list
+      runner.list_charts.each do |chart|
+        puts chart
+      end
     elsif options.only
     else
     end
