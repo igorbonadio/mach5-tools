@@ -63,5 +63,48 @@ module Mach5
       end
       config.output_folder.should be == "_benchmark"
     end
+
+    it "should define a chart" do
+      config = Mach5::configure("MyProject") do
+        output "_benchmark"
+        chart "viterbi_vs_pd" do
+          title "Viterbi vs Posterior Decoding"
+          add_line "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.Viterbi"
+          add_line "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.PosteriorDecoding"
+          x_axis "Sequence Size"
+          y_axis "Time (s)"
+          size "100x200"
+        end
+      end
+      config.charts.size.should be == 1
+      config.charts[0].should be == {
+        "type" => "line",
+        "dataType" => "runs_total_time",
+        "size" => {
+          "width" => 100,
+          "height" => 200
+        },
+        "title" => {
+          "text" => "Viterbi vs Posterior Decoding"
+        },
+        "xAxis" => {
+          "title" => {
+            "text" => "Sequence Size"
+          }
+        },
+        "yAxis" => {
+          "title" => {
+            "text" => "Time (s)"
+          }
+        },
+        "series" => [{
+          "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi",
+          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi.json"
+        },{
+          "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding",
+          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding.json"
+        }]
+      }
+    end
   end
 end
