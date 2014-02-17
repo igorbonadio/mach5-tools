@@ -108,7 +108,7 @@ module Mach5
 
     def chart(options = {})
       @config.charts.each do |chart|
-        puts "phantomjs #{File.join(File.dirname(__FILE__), "..", "lib/js/chart.js")} #{chart.build.to_json}"
+        puts "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\""
       end
     end
 

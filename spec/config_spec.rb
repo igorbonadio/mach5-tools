@@ -2,6 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 module Mach5
   describe "Config" do
+    before(:each) do
+      Dir.stub(:pwd).and_return("")
+    end
     it "should receive a block" do
       object = double("Object")
       object.should_receive(:touch)
@@ -99,10 +102,10 @@ module Mach5
         },
         "series" => [{
           "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi",
-          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi.json"
+          "file" =>  "/_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi.json"
         },{
           "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding",
-          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding.json"
+          "file" =>  "/_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding.json"
         }]
       }
     end

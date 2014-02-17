@@ -44,7 +44,7 @@ module Mach5
       series.each do |s|
         result << {
           "label" => "#{s[0]}.#{s[1]}",
-          "file" =>  File.join(@config.output_folder, "#{s[0]}.#{s[1]}.json")
+          "file" =>  File.join(Dir.pwd, @config.output_folder, "#{s[0]}.#{s[1]}.json")
         }
       end
       result

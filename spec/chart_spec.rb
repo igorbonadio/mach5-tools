@@ -12,6 +12,7 @@ module Mach5
       @chart.x_axis = "Sequence Size"
       @chart.y_axis = "Time (s)"
       @chart.series = [["edd0982eed0c414631991aa1dea67c811d95373f", "DishonestCasinoHMM.Viterbi"], ["edd0982eed0c414631991aa1dea67c811d95373f", "DishonestCasinoHMM.PosteriorDecoding"]]
+      Dir.stub(:pwd).and_return("")
     end
 
     it "should return a hash" do
@@ -37,10 +38,10 @@ module Mach5
         },
         "series" => [{
           "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi",
-          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi.json"
+          "file" =>  "/_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.Viterbi.json"
         },{
           "label" => "edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding",
-          "file" =>  "_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding.json"
+          "file" =>  "/_benchmark/edd0982eed0c414631991aa1dea67c811d95373f.DishonestCasinoHMM.PosteriorDecoding.json"
         }]
       }
     end
