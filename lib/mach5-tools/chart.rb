@@ -16,26 +16,26 @@ module Mach5
 
     def build
       {
-        "type" => "line",
+        "type" => @type,
         "dataType" => "runs_total_time",
         "size" => {
           "width" => size.split("x").map(&:to_i)[0],
           "height" => size.split("x").map(&:to_i)[1]
         },
         "title" => {
-          "text" => title
+          "text" => @title
         },
         "xAxis" => {
           "title" => {
-            "text" => x_axis
+            "text" => @x_axis
           }
         },
         "yAxis" => {
           "title" => {
-            "text" => y_axis
+            "text" => @y_axis
           }
         },
-        "series" => _series(series)
+        "series" => _series(@series)
       }
     end
 

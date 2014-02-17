@@ -52,10 +52,15 @@ module Mach5
 
     def chart(chart_id, &block)
       @chart_lines = []
+      @chart_type = "line"
+      @chart_size = "700x500"
+      @chart_title = "Benchmark"
+      @chart_x_axis = "X"
+      @chart_y_axis = "Y"
       instance_eval(&block)
       chart = Chart.new(chart_id)
-      chart.type = "line"
       chart.data_type = "runs_total_time"
+      chart.type = @chart_type
       chart.size = @chart_size
       chart.title = @chart_title
       chart.x_axis = @chart_x_axis
@@ -83,6 +88,10 @@ module Mach5
 
     def size(str)
       @chart_size = str
+    end
+
+    def type(str)
+      @chart_type = str
     end
   end
 end
