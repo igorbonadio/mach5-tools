@@ -77,7 +77,7 @@ module Mach5
         end
       end
       config.charts.size.should be == 1
-      config.charts[0].should be == {
+      config.charts[0].build.should be == {
         "type" => "line",
         "dataType" => "runs_total_time",
         "size" => {

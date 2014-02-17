@@ -53,28 +53,16 @@ module Mach5
     def chart(chart_id, &block)
       @chart_lines = []
       instance_eval(&block)
-      @charts << {
-        "type" => "line",
-        "dataType" => "runs_total_time",
-        "size" => {
-          "width" => @chart_size[0],
-          "height" => @chart_size[1]
-        },
-        "title" => {
-          "text" => @chart_title
-        },
-        "xAxis" => {
-          "title" => {
-            "text" => @chart_x_axis
-          }
-        },
-        "yAxis" => {
-          "title" => {
-            "text" => @chart_y_axis
-          }
-        },
-        "series" => @chart_lines
-      }
+      chart = Chart.new
+      chart.type = "line"
+      chart.data_type = "runs_total_time"
+      chart.size = @chart_size
+      chart.title = @chart_title
+      chart.x_axis = @chart_x_axis
+      chart.y_axis = @chart_y_axis
+      chart.series = @chart_lines
+      chart.folder = @output_folder
+      @charts << chart
     end
 
     def title(str)
@@ -88,10 +76,7 @@ module Mach5
       else
         commit_id = benchmark.keys[0]
       end
-      @chart_lines << {
-        "label" => "#{commit_id}.#{benchmark.values[0]}",
-        "file" =>  File.join(@output_folder, "#{commit_id}.#{benchmark.values[0]}.json")
-      }
+      @chart_lines << [commit_id, benchmark.values[0]]
     end
 
     def x_axis(label)
@@ -103,7 +88,7 @@ module Mach5
     end
 
     def size(str)
-      @chart_size = str.split("x").map(&:to_i)
+      @chart_size = str
     end
   end
 end
