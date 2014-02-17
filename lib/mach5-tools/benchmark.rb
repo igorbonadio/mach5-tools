@@ -27,6 +27,10 @@ module Mach5
       @memory.keys
     end
 
+    def tagged
+      @tags
+    end
+
     def has_tag?(commit_id)
       @tags.invert[commit_id]
     end
