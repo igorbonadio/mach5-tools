@@ -23,6 +23,18 @@ class App < Thor
     end
   end
 
+  desc "chart", "Generate charts"
+  method_option :all, :type => :boolean, :aliases => "-a", :desc => "Generates all benchmarks even if it was already generated"
+  method_option :list, :type => :boolean, :aliases => "-l", :desc => "List all available charts"
+  method_option :only, :type => :array, :aliases => "-o", :desc => "Generates only the specified charts"
+  def chart
+    runner = Mach5::Runner.new(eval(File.open("Mach5file").readlines.join))
+    if options.list
+    elsif options.only
+    else
+    end
+  end
+
   default_task :benchmark
 end
 

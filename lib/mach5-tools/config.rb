@@ -47,5 +47,24 @@ module Mach5
     def exec(command)
       @commands << command
     end
+
+    def chart(chart_id, &block)
+      instance_eval(&block)
+    end
+
+    def title(str)
+    end
+
+    def add_line(benchmark)
+    end
+
+    def x_axis(label)
+    end
+
+    def y_axis(label)
+    end
+
+    def size(str)
+    end
   end
 end
