@@ -107,9 +107,39 @@ module Mach5
     end
 
     def chart(options = {})
-      @config.charts.each do |chart|
-        puts "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\""
+      if options[:all]
+        generate_all_charts
+      elsif options[:only]
+        generate_only_specified_charts(options[:only])
+      else
+        generate_only_new_benchmarks
       end
+    end
+
+    def generate_all_charts
+      @config.charts.each do |chart|
+        generate_chart(chart)
+      end
+    end
+
+    def generate_only_specified_charts(charts)
+      @config.charts.each do |chart|
+        if charts.include? chart.id
+          generate_chart(chart)
+        end
+      end
+    end
+
+    def generate_only_new_benchmarks
+      @config.charts.each do |chart|
+        unless File.exists?("#{File.join(@config.output_folder, chart.id)}.png")
+          generate_chart(chart)
+        end
+      end
+    end
+
+    def generate_chart(chart)
+      Kernel.exec "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
     end
 
     def list_charts

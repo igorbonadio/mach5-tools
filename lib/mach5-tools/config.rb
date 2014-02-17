@@ -70,13 +70,7 @@ module Mach5
     end
 
     def add_line(benchmark)
-      tag = @benchmarks.has_tag?(benchmark.keys[0])
-      if tag
-        commit_id = tag
-      else
-        commit_id = benchmark.keys[0]
-      end
-      @chart_lines << [commit_id, benchmark.values[0]]
+      @chart_lines << [benchmark.keys[0], benchmark.values[0]]
     end
 
     def x_axis(label)
