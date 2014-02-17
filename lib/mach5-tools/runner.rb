@@ -77,14 +77,14 @@ module Mach5
 
     def _all_charts
       @config.charts.each do |chart|
-        generate_chart(chart)
+        _generate_chart(chart)
       end
     end
 
     def _only_charts(charts)
       @config.charts.each do |chart|
         if charts.include? chart.id
-          generate_chart(chart)
+          _generate_chart(chart)
         end
       end
     end
@@ -92,20 +92,22 @@ module Mach5
     def _only_new_charts
       @config.charts.each do |chart|
         unless File.exists?("#{File.join(@config.output_folder, chart.id)}.png")
-          generate_chart(chart)
+          _generate_chart(chart)
         end
       end
     end
 
-    def generate_chart(chart)
-      benchmarks = []
-      chart.series.each do |benchmark|
-        unless File.exists?("#{File.join(@config.output_folder, benchmark[0])}.#{benchmark[1]}.json")
-          benchmarks << "#{benchmark[0]}.#{benchmark[1]}"
-        end
-      end
+    def _generate_chart(chart)
+      benchmarks = _check_benchmarks
       run_only(benchmarks) if benchmarks.size > 0
       Kernel.system "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
+    end
+
+    def _check_benchmarks(chart)
+      benchmarks = []
+      chart.series.each do |benchmark|
+        benchmarks << "#{benchmark[0]}.#{benchmark[1]}" unless File.exists?("#{File.join(@config.output_folder, benchmark[0])}.#{benchmark[1]}.json")
+      end
     end
 
     def find_new_benchmarks(benchmarks, commit)
