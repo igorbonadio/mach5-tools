@@ -132,5 +132,9 @@ module Mach5
       @runner.should_receive(:_generate_chart)
       @runner.chart({})
     end
+
+    it "should list benchmarks" do
+      @runner.list_charts.should be == ["viterbi_vs_pd", "viterbi_vs_forward"]
+    end
   end
 end
