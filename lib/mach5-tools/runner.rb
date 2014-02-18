@@ -109,6 +109,7 @@ module Mach5
       chart.series.each do |benchmark|
         benchmarks << "#{benchmark[:commit_id]}.#{benchmark[:benchmark_id]}" unless File.exists?("#{File.join(@config.output_folder, benchmark[:commit_id])}.#{benchmark[:benchmark_id]}.json")
       end
+      benchmarks
     end
 
     def find_new_benchmarks(benchmarks, commit)
