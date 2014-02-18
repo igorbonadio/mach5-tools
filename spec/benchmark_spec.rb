@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Mach5
   describe Benchmark do
     before(:each) do
-      @memory = double('Memory')
-      @tags = double('Tags')
+      @memory = Hash.new
+      @tags = Hash.new
       @benchmark = Benchmark.new(@memory, @tags)
     end
 
@@ -30,6 +30,11 @@ module Mach5
     it "should tag commits" do
       @tags.should_receive("[]=").with("v1.0.1", "ab7c4351a13b29ea4c21e3662f9f567ff19a854d")
       @benchmark.tag("ab7c4351a13b29ea4c21e3662f9f567ff19a854d", "v1.0.1")
+    end
+
+    it "should verify if there is the given tag" do
+      @benchmark.tag("ab7c4351a13b29ea4c21e3662f9f567ff19a854d", "v1.0.1")
+      @benchmark.has_tag?("ab7c4351a13b29ea4c21e3662f9f567ff19a854d").should be == "v1.0.1"
     end
   end
 end
