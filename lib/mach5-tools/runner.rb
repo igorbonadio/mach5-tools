@@ -114,13 +114,11 @@ module Mach5
     end
 
     def _filename(commit_id, benchmark_id)
-      filename = ""
       if @config.benchmarks.tagged[commit_id]
-        filename = "#{File.join(@config.output_folder, @config.benchmarks.tagged[commit_id])}.#{benchmark_id}.json"
+        "#{File.join(@config.output_folder, @config.benchmarks.tagged[commit_id])}.#{benchmark_id}.json"
       else
-        filename = "#{File.join(@config.output_folder, commit_id)}.#{benchmark_id}.json"
+        "#{File.join(@config.output_folder, commit_id)}.#{benchmark_id}.json"
       end
-      filename
     end
 
     def find_new_benchmarks(benchmarks, commit)
