@@ -34,7 +34,7 @@ module Mach5
         chart "viterbi_vs_pd" do
           title "Viterbi vs Posterior Decoding"
           add_serie "v1.0.0" => "DishonestCasinoHMM.Viterbi"
-          add_serie "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.PosteriorDecoding"
+          add_serie "c031c8e9afe1493a81274adbdb61b81bc30ef522" => "DishonestCasinoHMM.PosteriorDecoding"
           x_axis "Sequence Size"
           y_axis "Time (s)"
           size "100x100"
@@ -93,6 +93,14 @@ module Mach5
       @runner.should_receive(:run).with(["DishonestCasinoHMM.Backward", "DishonestCasinoHMM.PosteriorDecoding"]).and_return({})
       @runner.should_receive(:after)
       @runner.benchmark({})
+    end
+
+    it "should run only selected benchmarks" do
+      Kernel.should_receive(:system).with("git checkout c031c8e9afe1493a81274adbdb61b81bc30ef522")
+      @runner.should_receive(:before)
+      @runner.should_receive(:run).with(["DishonestCasinoHMM.PosteriorDecoding"]).and_return({})
+      @runner.should_receive(:after)
+      @runner.benchmark({only: ["c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding"]})
     end
   end
 end
