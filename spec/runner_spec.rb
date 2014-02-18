@@ -102,5 +102,9 @@ module Mach5
       @runner.should_receive(:after)
       @runner.benchmark({only: ["c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding"]})
     end
+
+    it "should list benchmarks" do
+      @runner.list_benchmarks.should be == ["v1.0.0.DishonestCasinoHMM.Evaluate", "v1.0.0.DishonestCasinoHMM.Viterbi", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Forward", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Backward", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding"]
+    end
   end
 end
