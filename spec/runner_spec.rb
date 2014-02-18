@@ -145,5 +145,17 @@ module Mach5
       Kernel.should_receive(:system).with("phantomjs /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js/chart.js /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js \"[\\\"chart.build\\\"]\" _benchmark/chart.id.png")
       @runner._generate_chart(chart)
     end
+
+    it "should check if a benchmark needs to run" do
+      chart = double("Chart")
+      serie1 = double("Serie1")
+      serie1.stub(:[]).and_return("serie1.at")
+      serie2 = double("Serie2")
+      serie2.stub(:[]).and_return("serie2.at")
+      chart.stub(:series).and_return([serie1, serie2])
+      File.should_receive("exists?").with("_benchmark/serie1.at.serie1.at.json").and_return(false)
+      File.should_receive("exists?").with("_benchmark/serie2.at.serie2.at.json").and_return(true)
+      @runner._check_benchmarks(chart).size.should be == 1
+    end
   end
 end
