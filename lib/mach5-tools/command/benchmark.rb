@@ -10,6 +10,10 @@ module Mach5
         JSON.parse(results)
       end
 
+      def checkout(commit_id)
+        Kernel.system "git checkout #{commit_id}"
+      end
+
       def _only_benchmarks(benchmarks)
         @config.benchmarks.commits.each do |commit|
           selected_benchmarks = _select_benchmarks(commit, @config.benchmarks.has_tag?(commit), benchmarks)
