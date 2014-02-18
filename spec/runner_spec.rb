@@ -40,6 +40,15 @@ module Mach5
           size "100x100"
         end
 
+        chart "viterbi_vs_forward" do
+          title "Viterbi vs Posterior Forward"
+          add_serie "v1.0.0" => "DishonestCasinoHMM.Viterbi"
+          add_serie "c031c8e9afe1493a81274adbdb61b81bc30ef522" => "DishonestCasinoHMM.Forward"
+          x_axis "Sequence Size"
+          y_axis "Time (s)"
+          size "100x100"
+        end
+
       end
 
       @runner = Runner.new(@config)
@@ -105,6 +114,23 @@ module Mach5
 
     it "should list benchmarks" do
       @runner.list_benchmarks.should be == ["v1.0.0.DishonestCasinoHMM.Evaluate", "v1.0.0.DishonestCasinoHMM.Viterbi", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Forward", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.Backward", "c031c8e9afe1493a81274adbdb61b81bc30ef522.DishonestCasinoHMM.PosteriorDecoding"]
+    end
+
+    it "should generate all charts" do
+      @runner.should_receive(:_generate_chart).twice
+      @runner.chart({all: true})
+    end
+
+    it "should generate only selected charts" do
+      @runner.should_receive(:_generate_chart)
+      @runner.chart({only: "viterbi_vs_pd"})
+    end
+
+    it "should generate only new charts" do
+      File.should_receive("exists?").with("_benchmark/viterbi_vs_pd.png").and_return(true)
+      File.should_receive("exists?").with("_benchmark/viterbi_vs_forward.png").and_return(false)
+      @runner.should_receive(:_generate_chart)
+      @runner.chart({})
     end
   end
 end
