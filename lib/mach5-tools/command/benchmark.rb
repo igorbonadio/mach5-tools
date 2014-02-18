@@ -1,6 +1,15 @@
 module Mach5
   module Command
     module Benchmark
+      def run(benchmarks)
+        results = ""
+        @config.run_commands.each do |command|
+          output = IO.popen "#{command} --color --json run #{benchmarks.join(' ')}"
+          results = output.readlines.join
+        end
+        JSON.parse(results)
+      end
+
       def _only_benchmarks(benchmarks)
         @config.benchmarks.commits.each do |commit|
           selected_benchmarks = _select_benchmarks(commit, @config.benchmarks.has_tag?(commit), benchmarks)

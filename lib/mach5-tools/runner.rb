@@ -16,15 +16,6 @@ module Mach5
       end
     end
 
-    def run(benchmarks)
-      results = ""
-      @config.run_commands.each do |command|
-        output = IO.popen "#{command} --color --json run #{benchmarks.join(' ')}"
-        results = output.readlines.join
-      end
-      JSON.parse(results)
-    end
-
     %w{benchmark chart}.each do |method|
       define_method(method) do |options|
         if options[:all]
