@@ -9,7 +9,7 @@ module Mach5
       @chart.data_type = "runs_total_time"
       @chart.size = "100x200"
       @chart.title = "Viterbi vs Posterior Decoding"
-      @chart.x_axis = "Sequence Size"
+      @chart.x_axis = {label: "Sequence Size"}
       @chart.y_axis = "Time (s)"
       @chart.series = [{commit_id: "edd0982eed0c414631991aa1dea67c811d95373f", benchmark_id: "DishonestCasinoHMM.Viterbi"}, {commit_id: "edd0982eed0c414631991aa1dea67c811d95373f", benchmark_id: "DishonestCasinoHMM.PosteriorDecoding"}]
       Dir.stub(:pwd).and_return("")

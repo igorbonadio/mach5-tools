@@ -15,7 +15,7 @@ module Mach5
     end
 
     def build
-      {
+      hash = {
         "type" => @type,
         "dataType" => "runs_total_time",
         "size" => {
@@ -27,7 +27,7 @@ module Mach5
         },
         "xAxis" => {
           "title" => {
-            "text" => @x_axis
+            "text" => @x_axis[:label]
           }
         },
         "yAxis" => {
@@ -37,6 +37,8 @@ module Mach5
         },
         "series" => _series(@series)
       }
+      hash["xAxis"]["categories"] = @x_axis[:categories] if @x_axis[:categories]
+      hash
     end
 
     def _series(series)

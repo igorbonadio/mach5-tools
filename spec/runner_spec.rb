@@ -33,8 +33,8 @@ module Mach5
 
         chart "viterbi_vs_pd" do
           title "Viterbi vs Posterior Decoding"
-          add_line "v1.0.0" => "DishonestCasinoHMM.Viterbi"
-          add_line "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.PosteriorDecoding"
+          add_serie "v1.0.0" => "DishonestCasinoHMM.Viterbi"
+          add_serie "edd0982eed0c414631991aa1dea67c811d95373f" => "DishonestCasinoHMM.PosteriorDecoding"
           x_axis "Sequence Size"
           y_axis "Time (s)"
           size "100x100"

@@ -52,7 +52,7 @@ module Mach5
     end
 
     def chart(chart_id, &block)
-      @chart_lines = []
+      @chart_series = []
       @chart_type = "line"
       @chart_size = "700x500"
       @chart_title = "Benchmark"
@@ -66,7 +66,7 @@ module Mach5
       chart.title = @chart_title
       chart.x_axis = @chart_x_axis
       chart.y_axis = @chart_y_axis
-      chart.series = @chart_lines
+      chart.series = @chart_series
       chart.config = self
       @charts << chart
     end
@@ -75,15 +75,17 @@ module Mach5
       @chart_title = str
     end
 
-    def add_line(benchmark, &block)
+    def add_serie(benchmark, &block)
       @serie_label = nil
       @serie_color = nil
       block.call if block
-      @chart_lines << {commit_id: benchmark.keys[0], benchmark_id: benchmark.values[0], label: @serie_label, color: @serie_color}
+      @chart_series << {commit_id: benchmark.keys[0], benchmark_id: benchmark.values[0], label: @serie_label, color: @serie_color}
     end
 
-    def x_axis(label)
-      @chart_x_axis = label
+    def x_axis(label, &block)
+      @chart_x_axis_categories = nil
+      block.call if block
+      @chart_x_axis = {label: label, categories: @chart_x_axis_categories}
     end
 
     def y_axis(label)
@@ -104,6 +106,10 @@ module Mach5
 
     def color(str)
       @serie_color = str
+    end
+
+    def categories(cat)
+      @chart_x_axis_categories = cat
     end
   end
 end
