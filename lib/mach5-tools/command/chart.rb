@@ -26,7 +26,7 @@ module Mach5
       def _generate_chart(chart)
         benchmarks = _check_benchmarks(chart)
         _only_benchmarks(benchmarks) if benchmarks.size > 0
-        Kernel.system "phantomjs #{File.join(File.dirname(__FILE__), "js/chart.js")} #{File.join(File.dirname(__FILE__), "js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
+        Kernel.system "phantomjs #{File.join(File.dirname(__FILE__), "../js/chart.js")} #{File.join(File.dirname(__FILE__), "../js")} \"[#{chart.build.to_json.gsub("\"", "\\\"")}]\" #{File.join(@config.output_folder, chart.id)}.png"
       end
 
       def _check_benchmarks(chart)
