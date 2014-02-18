@@ -107,7 +107,7 @@ module Mach5
     def _check_benchmarks(chart)
       benchmarks = []
       chart.series.each do |benchmark|
-        benchmarks << "#{benchmark[0]}.#{benchmark[1]}" unless File.exists?("#{File.join(@config.output_folder, benchmark[0])}.#{benchmark[1]}.json")
+        benchmarks << "#{benchmark[:commit_id]}.#{benchmark[:benchmark_id]}" unless File.exists?("#{File.join(@config.output_folder, benchmark[:commit_id])}.#{benchmark[:benchmark_id]}.json")
       end
     end
 

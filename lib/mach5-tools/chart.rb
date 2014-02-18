@@ -42,14 +42,16 @@ module Mach5
     def _series(series)
       result = []
       series.each do |s|
-        commit_id = @config.benchmarks.tagged[s[0]]
+        commit_id = @config.benchmarks.tagged[s[:commit_id]]
         unless commit_id
-          commit_id = s[0]
+          commit_id = s[:commit_id]
         end
-        result << {
-          "label" => "#{s[0]}.#{s[1]}",
-          "file" =>  File.join(Dir.pwd, @config.output_folder, "#{commit_id}.#{s[1]}.json")
+        serie = {
+          "label" => "#{s[:commit_id]}.#{s[:benchmark_id]}",
+          "file" =>  File.join(Dir.pwd, @config.output_folder, "#{commit_id}.#{s[:benchmark_id]}.json")
         }
+        serie["label"] = s[:label] if s[:label]
+        result << serie
       end
       result
     end
