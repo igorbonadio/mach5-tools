@@ -16,6 +16,7 @@ module Mach5
       @project_name = project_name
       @benchmarks = Benchmark.new(Hash.new, Hash.new)
       @charts = []
+      @output_folder = "_benchmark"
       instance_eval(&block)
     end
 
