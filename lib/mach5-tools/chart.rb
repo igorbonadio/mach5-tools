@@ -51,6 +51,7 @@ module Mach5
           "file" =>  File.join(Dir.pwd, @config.output_folder, "#{commit_id}.#{s[:benchmark_id]}.json")
         }
         serie["label"] = s[:label] if s[:label]
+        serie["color"] = s[:color] if s[:color]
         result << serie
       end
       result

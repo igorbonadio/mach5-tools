@@ -77,8 +77,9 @@ module Mach5
 
     def add_line(benchmark, &block)
       @serie_label = nil
+      @serie_color = nil
       block.call if block
-      @chart_lines << {commit_id: benchmark.keys[0], benchmark_id: benchmark.values[0], label: @serie_label}
+      @chart_lines << {commit_id: benchmark.keys[0], benchmark_id: benchmark.values[0], label: @serie_label, color: @serie_color}
     end
 
     def x_axis(label)
@@ -99,6 +100,10 @@ module Mach5
 
     def label(str)
       @serie_label = str
+    end
+
+    def color(str)
+      @serie_color = str
     end
   end
 end
