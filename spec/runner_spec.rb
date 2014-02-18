@@ -136,5 +136,14 @@ module Mach5
     it "should list benchmarks" do
       @runner.list_charts.should be == ["viterbi_vs_pd", "viterbi_vs_forward"]
     end
+
+    it "should generate charts" do
+      chart = double("Chart")
+      chart.stub(:build).and_return("chart.build")
+      chart.stub(:id).and_return("chart.id")
+      @runner.should_receive(:_check_benchmarks).with(chart).and_return([])
+      Kernel.should_receive(:system).with("phantomjs /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js/chart.js /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js \"[\\\"chart.build\\\"]\" _benchmark/chart.id.png")
+      @runner._generate_chart(chart)
+    end
   end
 end
