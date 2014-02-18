@@ -107,17 +107,20 @@ module Mach5
     def _check_benchmarks(chart)
       benchmarks = []
       chart.series.each do |benchmark|
-        filename = ""
-        if @config.benchmarks.tagged[benchmark[:commit_id]]
-          filename = "#{File.join(@config.output_folder, @config.benchmarks.tagged[benchmark[:commit_id]])}.#{benchmark[:benchmark_id]}.json"
-        else
-          filename = "#{File.join(@config.output_folder, benchmark[:commit_id])}.#{benchmark[:benchmark_id]}.json"
-        end
-        unless File.exists?(filename)
-          benchmarks << "#{benchmark[:commit_id]}.#{benchmark[:benchmark_id]}"
-        end
+        filename = _filename(benchmark[:commit_id], benchmark[:benchmark_id])
+        benchmarks << "#{benchmark[:commit_id]}.#{benchmark[:benchmark_id]}" unless File.exists?(filename)
       end
       benchmarks
+    end
+
+    def _filename(commit_id, benchmark_id)
+      filename = ""
+      if @config.benchmarks.tagged[commit_id]
+        filename = "#{File.join(@config.output_folder, @config.benchmarks.tagged[commit_id])}.#{benchmark_id}.json"
+      else
+        filename = "#{File.join(@config.output_folder, commit_id)}.#{benchmark_id}.json"
+      end
+      filename
     end
 
     def find_new_benchmarks(benchmarks, commit)
