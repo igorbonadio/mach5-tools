@@ -17,7 +17,7 @@ module Mach5
     def build
       hash = {
         "type" => @type,
-        "dataType" => "runs_total_time",
+        "dataType" => @data_type,
         "size" => {
           "width" => size.split("x").map(&:to_i)[0],
           "height" => size.split("x").map(&:to_i)[1]

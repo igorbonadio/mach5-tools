@@ -58,9 +58,10 @@ module Mach5
       @chart_title = "Benchmark"
       @chart_x_axis = "X"
       @chart_y_axis = "Y"
+      @data_type = "runs_total_time"
       instance_eval(&block)
       chart = Chart.new(chart_id)
-      chart.data_type = "runs_total_time"
+      chart.data_type = @data_type
       chart.type = @chart_type
       chart.size = @chart_size
       chart.title = @chart_title
@@ -80,6 +81,10 @@ module Mach5
       @serie_color = nil
       block.call if block
       @chart_series << {commit_id: benchmark.keys[0], benchmark_id: benchmark.values[0], label: @serie_label, color: @serie_color}
+    end
+
+    def data_type(type)
+      @data_type = type
     end
 
     def x_axis(label, &block)
