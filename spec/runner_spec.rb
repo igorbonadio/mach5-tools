@@ -141,8 +141,9 @@ module Mach5
       chart = double("Chart")
       chart.stub(:build).and_return("chart.build")
       chart.stub(:id).and_return("chart.id")
+      File.stub(:dirname).and_return("")
       @runner.should_receive(:_check_benchmarks).with(chart).and_return([])
-      Kernel.should_receive(:system).with("phantomjs /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js/chart.js /Users/igorbonadio/Projetos/mach5-tools/lib/mach5-tools/js \"[\\\"chart.build\\\"]\" _benchmark/chart.id.png")
+      Kernel.should_receive(:system).with("phantomjs /js/chart.js /js \"[\\\"chart.build\\\"]\" _benchmark/chart.id.png")
       @runner._generate_chart(chart)
     end
 
