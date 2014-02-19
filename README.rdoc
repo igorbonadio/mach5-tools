@@ -23,6 +23,16 @@ After that, go to the root of your project and run
 
 It will generate a file called Mach5file that is a template of benchmark and chart definitions. So all you need to do is edit this file.
 
+== Usage
+
+There are 5 available commands:
+
+* benchmark - Run benchmarks
+* chart - Generate charts
+* init - Create an initial Mach5file
+* version - Print the version
+* help - Describe available commands or one specific command
+
 == Contributing to Mach5 Tools
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
