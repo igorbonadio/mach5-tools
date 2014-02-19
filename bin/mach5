@@ -40,6 +40,11 @@ class App < Thor
     end
   end
 
+  desc "version", "Print the version"
+  def version
+    puts "v#{File.open(File.join(File.dirname(__FILE__), "../VERSION")).readlines.join}"
+  end
+
   default_task :benchmark
 end
 
