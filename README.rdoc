@@ -4,7 +4,7 @@ Easily manage your Mach5 benchmarks.
 
 == Usage
 
-Frist you need to configure and define benchmarks using the Mach5 library. If you want to know how to do it, check this {Link page}[https://github.com/igorbonadio/mach5].
+Frist you need to configure and define benchmarks using the Mach5 library. If you want to know how to do it, check this {page}[https://github.com/igorbonadio/mach5].
 
 == Contributing to Mach5 Tools
 
