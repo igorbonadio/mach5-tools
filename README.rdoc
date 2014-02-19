@@ -1,10 +1,12 @@
-= Mach 5 Tools
+= Mach5 Tools
 
-It is a beta software!
+Easily manage your Mach5 benchmarks.
 
-Mach 5 Tools is part of Mach 5 project: https://github.com/igorbonadio/mach5
+== Usage
 
-== Contributing to Mach 5 Tools
+Frist you need to configure and define benchmarks using the Mach5 library. If you want to know how to do it, check this {Link page}[https://github.com/igorbonadio/mach5].
+
+== Contributing to Mach5 Tools
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
