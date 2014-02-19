@@ -7,11 +7,17 @@ Easily manage your Mach5 benchmarks.
 * Mach5 library (https://github.com/igorbonadio/mach5)
 * Ruby 1.9 or 2.0 (http://www.ruby-lang.org)
 * Git (http://git-scm.com)
-* Phantomjs (http://phantomjs.org/), if you want to generate charts
+* Phantomjs (http://phantomjs.org), if you want to generate charts
 
-== Usage
+== Configuration
 
 First you need to configure and to define benchmarks using the Mach5 library. If you want to know how to do it, check this {page}[https://github.com/igorbonadio/mach5].
+
+After that, go to the root of your project and run
+
+  $ mach5 init
+
+It will generate a file called Mach5file that is a template of benchmark and chart definitions. So all you need to do is edit this file.
 
 == Contributing to Mach5 Tools
 
