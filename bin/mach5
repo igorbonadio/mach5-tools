@@ -45,6 +45,17 @@ class App < Thor
     puts "v#{File.open(File.join(File.dirname(__FILE__), "../VERSION")).readlines.join}"
   end
 
+  desc "init", "Create an initial Mach5file"
+  def init
+    if File.exists?("Mach5file")
+      puts "There is already a Mach5file. If you want to overwrite it, try to remove it first and then generate a new one."
+    else
+      File.open("Mach5file", "w") do |f|
+        f.write(File.open(File.join(File.dirname(__FILE__), "../lib/templates/Mach5file")).readlines.join.gsub("{{PROJECT_NAME}}", File.basename(Dir.getwd)))
+      end
+    end
+  end
+
   default_task :benchmark
 end
 
