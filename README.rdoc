@@ -9,6 +9,10 @@ Easily manage your Mach5 benchmarks.
 * Git (http://git-scm.com)
 * Phantomjs (http://phantomjs.org), if you want to generate charts
 
+== Install
+
+  $ gem install mach5-tools
+
 == Configuration
 
 First you need to configure and to define benchmarks using the Mach5 library. If you want to know how to do it, check this {page}[https://github.com/igorbonadio/mach5].
